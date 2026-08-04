@@ -1,0 +1,35 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-recsys}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-recsys}
+      POSTGRES_DB: ${POSTGRES_DB:-recsys}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-recsys} -d ${POSTGRES_DB:-recsys}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    mem_limit: 2g
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      APP_ENV: ${APP_ENV:-development}
+      CONFIG_PATH: ${CONFIG_PATH:-configs/data_small.yaml}
+      DATABASE_URL: ${DATABASE_URL:-postgresql+psycopg://recsys:recsys@postgres:5432/recsys}
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    mem_limit: 8g
+
+volumes:
+  postgres_data:

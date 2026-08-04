@@ -1,0 +1,20 @@
+project:
+  name: hm-recsys-platform
+  random_seed: 42
+
+paths:
+  raw_dir: data/raw
+  bronze_dir: data/bronze
+  silver_dir: data/silver
+  gold_dir: data/gold
+  artifact_dir: artifacts
+  report_dir: reports/resource_usage
+
+resources:
+  project_target_memory_gb: 10
+  project_warning_memory_gb: 12
+  project_hard_stop_memory_gb: 14
+  threads: 4
+
+logging:
+  level: INFO

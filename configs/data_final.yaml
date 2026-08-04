@@ -1,0 +1,11 @@
+extends: base.yaml
+sample:
+  users: 30000
+  max_items: 40000
+  max_transactions: 4000000
+  history_weeks: 16
+  random_seed: 42
+ranking:
+  candidates_per_user: 75
+model:
+  als_factors: 64

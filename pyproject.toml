@@ -1,0 +1,84 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "hm-recsys-platform"
+version = "0.1.0"
+description = "Memory-bounded H&M clothing recommendation system portfolio project"
+readme = "README.md"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+  "implicit==0.7.3",
+  "lightgbm>=4.6,<5",
+  "numpy>=2.0,<2.3",
+  "polars>=1.30,<2",
+  "psutil>=6,<8",
+  "pyarrow>=18,<26",
+  "pydantic>=2.10,<3",
+  "pydantic-settings>=2.8,<3",
+  "pyyaml>=6,<7",
+  "scikit-learn>=1.6,<1.8",
+  "scipy>=1.14,<1.16",
+  "typer>=0.15,<1",
+]
+
+[project.scripts]
+hm-recsys = "hm_recsys.cli:app"
+
+[dependency-groups]
+dev = [
+  "mypy>=1.15,<2",
+  "pre-commit>=4,<5",
+  "pytest>=8.3,<9",
+  "pytest-cov>=6,<8",
+  "ruff>=0.12,<1",
+  "types-pyyaml>=6,<7",
+]
+api = [
+  "alembic>=1.15,<2",
+  "fastapi[standard]>=0.141,<1",
+  "prometheus-client>=0.21,<1",
+  "psycopg[binary]>=3.2,<4",
+  "sqlalchemy>=2.0,<3",
+]
+mlops = [
+  "mlflow>=3,<4",
+  "prefect>=3,<4",
+]
+notebook = [
+  "ipykernel>=6,<8",
+  "jupyterlab>=4,<5",
+  "matplotlib>=3.9,<4",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/hm_recsys"]
+
+[tool.pytest.ini_options]
+addopts = "-q --strict-markers"
+testpaths = ["tests"]
+pythonpath = ["src"]
+markers = [
+  "integration: tests requiring external services or larger data",
+]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
+ignore = []
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+mypy_path = "src"
+packages = ["hm_recsys"]
+warn_unused_configs = true
