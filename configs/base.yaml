@@ -7,6 +7,7 @@ paths:
   bronze_dir: data/bronze
   silver_dir: data/silver
   gold_dir: data/gold
+  manifest_dir: data/manifests
   artifact_dir: artifacts
   report_dir: reports/resource_usage
 
