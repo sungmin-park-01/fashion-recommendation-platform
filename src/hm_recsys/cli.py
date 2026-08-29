@@ -5,6 +5,7 @@ import typer
 
 from hm_recsys.config import load_config
 from hm_recsys.data.ingest import ingest_raw_csvs
+from hm_recsys.data.sample import build_sample_snapshot
 
 app = typer.Typer(
     no_args_is_help=True,
@@ -54,6 +55,29 @@ def ingest(
     """Convert raw H&M CSV files into typed Bronze Parquet files."""
     manifest_path = ingest_raw_csvs(config, overwrite=overwrite)
     typer.echo(f"Bronze ingest completed: {manifest_path}")
+
+
+@app.command("sample")
+def sample_command(
+    config: Annotated[
+        Path,
+        typer.Option(
+            "--config",
+            "-c",
+            help="Sampling configuration path.",
+        ),
+    ] = Path("configs/data_small.yaml"),
+    overwrite: Annotated[
+        bool,
+        typer.Option(
+            "--overwrite",
+            help="Replace an existing sampled snapshot.",
+        ),
+    ] = False,
+) -> None:
+    """Create a deterministic sampled dataset from Bronze Parquet files."""
+    manifest_path = build_sample_snapshot(config, overwrite=overwrite)
+    typer.echo(f"Sample snapshot completed: {manifest_path}")
 
 
 if __name__ == "__main__":
