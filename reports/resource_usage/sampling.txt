@@ -1,0 +1,29 @@
+[sample] Selecting up to 5,000 users with seed=42
+[sample] Loading transactions for sampled users
+[sample] Selecting up to 10,000 most-used items
+[write] data/silver/.small.tmp/transactions.parquet: 73,780 rows, 0.7 MiB
+[write] data/silver/.small.tmp/customers.parquet: 4,530 rows, 0.3 MiB
+[write] data/silver/.small.tmp/articles.parquet: 10,000 rows, 0.4 MiB
+[write] data/silver/.small.tmp/user_mapping.parquet: 4,530 rows, 0.2 MiB
+[write] data/silver/.small.tmp/item_mapping.parquet: 10,000 rows, 0.1 MiB
+[manifest] data/manifests/small_snapshot.json
+[done] snapshot_id=small-4070448b9f78, users=4,530, items=10,000, transactions=73,780
+Sample snapshot completed: /Users/sungmin/hm-recsys-platform/data/manifests/small_snapshot.json
+        0.76 real         1.36 user         0.29 sys
+          1320861696  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+               64629  page reclaims
+               37089  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   1  messages sent
+                   1  messages received
+                   1  signals received
+                 664  voluntary context switches
+               16342  involuntary context switches
+           205147976  instructions retired
+            96190183  cycles elapsed
+            12370376  peak memory footprint
