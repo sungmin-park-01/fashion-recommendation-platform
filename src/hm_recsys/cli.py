@@ -6,6 +6,7 @@ import typer
 from hm_recsys.config import load_config
 from hm_recsys.data.ingest import ingest_raw_csvs
 from hm_recsys.data.sample import build_sample_snapshot
+from hm_recsys.data.split import build_temporal_splits
 
 app = typer.Typer(
     no_args_is_help=True,
@@ -82,3 +83,31 @@ def sample_command(
 
 if __name__ == "__main__":
     app()
+
+
+@app.command("split")
+def split_command(
+    config: Annotated[
+        Path,
+        typer.Option(
+            "--config",
+            "-c",
+            help="Temporal split configuration path.",
+        ),
+    ] = Path("configs/data_small.yaml"),
+    overwrite: Annotated[
+        bool,
+        typer.Option(
+            "--overwrite",
+            help="Replace existing temporal split files.",
+        ),
+    ] = False,
+) -> None:
+    """Create time-based train, label, validation, and test splits."""
+
+    manifest_path = build_temporal_splits(
+        config,
+        overwrite=overwrite,
+    )
+
+    typer.echo(f"Temporal split completed: {manifest_path}")
