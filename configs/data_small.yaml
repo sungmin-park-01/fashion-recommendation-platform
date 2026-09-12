@@ -13,3 +13,8 @@ ranking:
 
 model:
   als_factors: 32
+
+split:
+  label_weeks: 2
+  validation_weeks: 2
+  test_weeks: 2
