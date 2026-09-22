@@ -1,11 +1,25 @@
 extends: base.yaml
 sample:
+  name: medium
   users: 20000
   max_items: 30000
   max_transactions: 2500000
   history_weeks: 16
   random_seed: 42
+
 ranking:
-  candidates_per_user: 100
+  candidates_per_user: 50
+
 model:
-  als_factors: 64
+  als_factors: 32
+
+split:
+  label_weeks: 2
+  validation_weeks: 2
+  test_weeks: 2
+
+resources:
+  project_target_memory_gb: 6
+  project_warning_memory_gb: 7
+  project_hard_stop_memory_gb: 8
+  threads: 4
